@@ -19,7 +19,7 @@
         
         public function view($slug = NULL)
         {
-            $this->game_model->get_games($slug);
+            $this->game_model->getGames($slug);
         }
     }
 ?>

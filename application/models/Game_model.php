@@ -7,6 +7,11 @@
             $this->load->database();
         }
         
+        /**
+         * Gets every game from the database
+         * @param $slug OPTIONAL //TODO redirect to specific game's BGG site
+         * 
+         **/
         public function getGames($slug = FALSE)
         {
             if ($slug === FALSE)
@@ -15,7 +20,7 @@
                 return $query->result_array();
             }
             
-            $this->redirect('https://boardgamegeek.com');
+            redirect('https://boardgamegeek.com');
         }
     }
 ?>
