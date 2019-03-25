@@ -8,4 +8,4 @@ Future updates will add social features such as Friends and Activity Feeds that 
 
 Thanks to BoardGameGeek.com for providing an API to access their data.
 
-This project is build using the CodeIgniter framework.
+This project is built using the CodeIgniter framework.
