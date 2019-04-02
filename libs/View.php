@@ -7,7 +7,7 @@ class View
         //echo '<br>You have constructed the view<br>';
     }
     
-    public function render($name)
+    public function render($name, $data = array())
     {
         require 'views/pages/' . $name . '.php';
     }

@@ -5,21 +5,22 @@ class Collections extends Controller
     public function __construct()
     {
         parent::__construct();
-        
-        $this->view->msg = 'This is where you will view your collection';
-        $this->view->render('collection');
-        
+        require 'models/Collection_model.php';
+        $this->model = new Collection_model();
+        $this->index();
     }
     
     public function index($param = null)
     {
-        require 'models/Collection_model.php';
-        new Collection_model();
-        
         if ($param)
         {
             echo 'And this param would result in redirect to the BGG page';
         }
+        
+        $collection = $this->model->fetchCollection();
+        print_r($collection);
+        
+        $this->view->render('collection', $collection);
     }
     
     public function test()

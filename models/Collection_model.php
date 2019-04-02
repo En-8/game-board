@@ -4,8 +4,19 @@ class Collection_model extends Model
 {
     public function __construct()
     {
-        //echo '<br>You\'ve made it to the collections Model!<br>';
-        //echo 'This is what will CRUD for you.';
+        // Gives access to database through $this->db
+        parent::__construct();
+    }
+    
+    public function fetchCollection()
+    {
+        $query = "SELECT name FROM games JOIN user_collections ON user_collections.game_id = games.id WHERE user_id = 1";
+        $result = $this->db->query($query);
+        while ($data = mysqli_fetch_array($result))
+        {
+            $collection[] = $data;
+        }
+        return $collection;
     }
 }
 
