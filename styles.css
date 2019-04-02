@@ -1,0 +1,28 @@
+body {
+    background-color: lightblue;
+}
+
+nav {
+    margin-left: 3em;
+}
+
+nav>a {
+    padding: 0.5em;
+    margin-right: 1em;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+    background-color: grey;
+    border-radius: 3px;
+}
+
+nav>a:hover {
+    background-color: lightgrey;
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+    /*justify-content: space-between;*/
+}
