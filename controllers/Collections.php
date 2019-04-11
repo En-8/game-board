@@ -18,7 +18,6 @@ class Collections extends Controller
         }
         
         $collection = $this->model->fetchCollection();
-        print_r($collection);
         
         $this->view->render('collection', $collection);
     }

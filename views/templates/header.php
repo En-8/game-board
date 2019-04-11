@@ -9,7 +9,9 @@
         <header class="flex-container">
             <h1>GameBoard</h1>
             <nav>
-                <a href="<?= $baseURL ?>/Index">Home</a>
-                <a href="<?= $baseURL ?>/Collections">Your Collection</a>
+                <a href="<?= $baseURL ?>/index">Home</a>
+                <a href="<?= $baseURL ?>/collections">Your Collection</a>
+                <a href="<?= $baseURL ?>/login">Log In</a>
             </nav>
         </header>
+        <hr />
