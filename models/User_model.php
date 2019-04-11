@@ -13,11 +13,15 @@ class User_model extends Model
         // TODO add a user to the database
     }
     
+    /**
+     * This method checks if the given username and password combination exists in the database
+     * @param $username The user's supplied username
+     * @param $password The user's supplied password
+     * @return $user_data If user exists in the database, returns array containing user's id and username
+     * @return false User does not exist in the database
+     */
     public function authenticate($username, $password)
     {
-        // TODO compare user-supplied credentials against the database of users
-            // boolean return value
-            // parameters ?? Probably username and password
         $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
         $result = $this->db->query($query);
         if ($result->num_rows == 1)
