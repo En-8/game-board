@@ -1,5 +1,7 @@
 <?php require_once 'views/templates/header.php';?>
 
+<a class="button" href="<?= baseURL ?>/search">Add a game</a>
+
 <section class="game-collection">
 <?php
     foreach ($data as $game)

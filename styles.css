@@ -26,3 +26,46 @@ nav>a:hover {
     align-items: center;
     /*justify-content: space-between;*/
 }
+
+.button {
+    display: inline-block;
+    padding: 0.5em;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+    background-color: grey;
+    border-radius: 3px;
+    margin: 2em;
+}
+
+.button:hover {
+    background-color: lightgrey;
+
+}
+
+.game-collection {
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+.game-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 200px;
+    border: 1px solid black;
+}
+
+.game-card>p {
+    text-align: center;
+}
+
+.game-card>div {
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+}

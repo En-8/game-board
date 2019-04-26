@@ -22,9 +22,29 @@ class Collections extends Controller
         $this->view->render('collection', $collection);
     }
     
-    public function test()
+    /**
+     * This function adds a new game to a user's collection
+     * @param $game_id the BGG id of the game being added
+     * @return true if successful addition
+     * @return false if failed addition or not logged in
+     */
+    public function add($game_id)
     {
-        echo 'This is a test function';
+        if (isset($_SESSION['user_id']))
+        {
+            if ($this->model->addGame($_SESSION['user_id'], $game_id))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 }
 

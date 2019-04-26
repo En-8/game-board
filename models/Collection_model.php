@@ -25,11 +25,9 @@ class Collection_model extends Model
         // TODO allow for users to import their BGG collection.
     }
     
-    public function addGame()
+    public function addGame($userId, $gameId)
     {
-        // TODO adds a game to the users' collection
-            //NOTE: Game must already exist in the games database.
-            // If not, encourage use of search feature (BGG API)
+        
     }
 }
 
