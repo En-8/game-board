@@ -34,28 +34,37 @@ class Collections extends Controller
      */
     public function add($game_id, $game_name)
     {
-        var_dump($game_id);
-        var_dump($game_name);
+        var_dump($game_id); // FOR TESTING
+        var_dump($game_name); // FOR TESTING
+        
+        $data = array();
         
         if (isset($_SESSION['user_id']))
         {
-            if ($this->model->addGame($_SESSION['user_id'], $game_id))
+            if (!$this->model->gameInCollection($_SESSION['user_id'], $game_id))
             {
-                echo 'DB queried successfully';
-                $message = '<p class="success>' . $name . ' is now in your collection! Keep searching to add more game, or view your collection here.</p>'
-                        . '<p>Want to log a play immediately? Click here!</p>';
-                $data = array('message' => $message);
-                $this->render('search', $data);
+                if ($this->model->addGame($_SESSION['user_id'], $game_id))
+                {
+                    echo 'DB queried successfully';
+                    $message = '<p class="success">' . $name . ' is now in your collection! Keep searching to add more game, or view your collection here.</p>'
+                            . '<p>Want to log a play immediately? Click here!</p>';
+                }
+                else
+                {
+                    $message = '<p class="error">Oops! There was an error adding that game to your collection. Please try again.</p>';
+                }
             }
             else
             {
-                echo "addGame returned false";
-                return false;
+                $message = '<p class="error">Oops! That game is already in your collection.</p>';
             }
+            
+            $data = array('message' => $message);
+            $this->view->render('search', $data);
         }
         else
         {
-            echo 'Sessions ID not set';
+            echo 'You must be logged in to perform that action.';
             return false;
         }
     }

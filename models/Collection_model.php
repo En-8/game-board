@@ -46,14 +46,6 @@ class Collection_model extends Model
         var_dump($userId);
         var_dump($gameId);
         
-        // TODO add a check to make sure the game isn't already in the user's collection before trying to add it.
-        $query = "SELECT * FROM user_collections WHERE user_id = '$userId' AND game_id = '$gameId'";
-        $result = $this->db->query($query);
-        if ($result->num_rows > 0)
-        {
-            return false;
-        }
-        
         $query = "INSERT INTO user_collections VALUES ('$userId', '$gameId')";
         var_dump($query);
         
@@ -63,7 +55,32 @@ class Collection_model extends Model
         }
         else
         {
-            echo "there was a query error";
+            return false;
+        }
+    }
+    
+    /**
+     * This function checks if a game is already in the user's collection
+     * 
+     * @param $userId the user's id
+     * @param $gameId the BGG ID of the game being added.
+     * @return true if game is there
+     * @return false if it is not there
+     */
+    public function gameInCollection($userId, $gameId)
+    {
+        $userId = $this->db->real_escape_string(trim($userId));
+        $gameId = $this->db->real_escape_string(trim($gameId));
+        
+        $query = "SELECT * FROM user_collections WHERE user_id = '$userId' AND game_id = '$gameId'";
+        $result = $this->db->query($query);
+        if ($result->num_rows > 0)
+        {
+            var_dump($result);
+            return true;
+        }
+        else
+        {
             return false;
         }
     }
