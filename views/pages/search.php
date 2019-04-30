@@ -11,9 +11,11 @@
     // var_dump($data);
     // print_r($data);
 
-    if (isset($data))
+    if (isset($data['searchResult']))
     {
-        foreach ($data as $game)
+        $searchResult = $data['searchResult'];
+        
+        foreach ($searchResult as $game)
         {
             $id = $game->attributes()->id->__toString();
             $name = $game->name[0]['value']->__toString();
@@ -24,7 +26,7 @@
                 <div class="card-image" style="background-image: url(<?=$thumbnail?>)"></div>
                 <p><?= $name ?></p>
                 <p><?= $yearPublished ?></p>
-                <a href="<?=baseURL?>collections/add/<?=$id?>">Add To Collection</a>
+                <a href="<?=baseURL?>/collections/add/<?=$id?>/<?=$name?>">Add To Collection</a>
                 <a href="https://boardgamegeek.com/boardgame/<?=$id?>">More info on BGG.com</a>
             </article>
 
@@ -32,6 +34,10 @@
         }
         
         // TODO set up try/catch to handle if API call doesn't function correctly.
+    }
+    else if (isset($data['message']))
+    {
+        echo $data['message'];
     }
 
 ?>

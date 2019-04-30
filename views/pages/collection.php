@@ -4,13 +4,24 @@
 
 <section class="game-collection">
 <?php
-    foreach ($data as $game)
+    echo $data['message'];
+    
+    if (isset($data['collection']))
+    {
+        foreach ($data['collection'] as $game)
+        {
+?>
+            <article class="game-card">
+                <img />
+                <p class="game-title"><?= $game['game_id'] ?></p>
+            </article>
+<?php
+        }
+    }
+    else
     {
 ?>
-        <article class="game-card">
-            <img />
-            <p class="game-title"><?= $game['name'] ?></p>
-        </article>
+    <p>Your collection is empty! Add games to get started managing your collection.</p>
 <?php
     }
 ?>

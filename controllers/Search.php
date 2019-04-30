@@ -25,10 +25,8 @@ class Search extends Controller
             $userSearch = $_POST['userSearch']; // THIS SHOULD BE PARAMETER OF INDEX FUNCTION
             $searchResult = $this->model->search($userSearch);
             
-            // $searchResultXMLObject = simplexml_load_string($searchResult); NO LONGER NEEDED; SEARCH RESULT COMES BACK AS A SIMPLE XML OBJECT
-            //print_r($searchResultXML);
-            
-            $this->view->render('search', $searchResult);
+            $data = array('searchResult' => $searchResult);
+            $this->view->render('search', $data);
         }
         else
         {

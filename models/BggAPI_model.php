@@ -16,16 +16,8 @@ class BggAPI_model
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         $xmlString = curl_exec($ch);
         
-        // return $xmlString;
-        
         // Get the id of each item in the xmlString query result
         $xmlObject = simplexml_load_string($xmlString);
-
-        /*$gamesById = array();
-        foreach ($xmlObject->item as $item)
-        {
-            $gamesById[] = $item['id'];
-        }*/
         
         foreach ($xmlObject->item as $item)
         {
@@ -37,9 +29,7 @@ class BggAPI_model
             $gamesById[] = (int)$attributeArray['id'];
         }
         
-        // return $gamesById;
-        
-        // Construct a new API call to get Things related to each id (single call) ABSTRACT INTO NEW FUNCTION
+        // Construct a new API call to get Things related to each id (single call)
         $games = $this->getThings($gamesById);
         
         return $games;
