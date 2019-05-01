@@ -70,6 +70,21 @@ class Collections extends Controller
             return false;
         }
     }
+    
+    public function remove($game_id, $game_name = null)
+    {
+        if ($this->model->removeGame($_SESSION['user_id'], $game_id))
+        {
+            $message = '<p class="success">Game successfully removed from your collection</p>';
+        }
+        else
+        {
+            $message = '<p class="error">There was an error removing this game from your collection. Please try again.</p>';
+        }
+        
+        $this->data['message'] = $message;
+        $this->index();
+    }
 }
 
 

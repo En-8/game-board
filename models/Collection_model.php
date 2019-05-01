@@ -60,6 +60,30 @@ class Collection_model extends Model
     }
     
     /**
+     * This function attempts to remove a game to a user's collection on the database
+     * 
+     * @param $userId the user's id
+     * @param $gameId the BGG ID of the game being added.
+     * @return true on successful removal
+     * @return false on failed removal
+     */
+    public function removeGame($user_id, $game_id)
+    {
+        $gameId = $this->db->real_escape_string(trim($gameId));
+        
+        $query = "DELETE FROM user_collections WHERE user_id = '$user_id' AND game_id = '$game_id'";
+        
+        if ($this->db->query($query))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    /**
      * This function checks if a game is already in the user's collection
      * 
      * @param $userId the user's id
