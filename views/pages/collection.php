@@ -2,10 +2,10 @@
 
 <a class="button" href="<?= baseURL ?>/search">Add a game</a>
 
+<?=$data['message']?>
+
 <section class="game-collection">
 <?php
-    echo $data['message'];
-    
     if (isset($data['collection']))
     {
         foreach ($data['collection'] as $game)

@@ -7,7 +7,9 @@ class Collections extends Controller
         parent::__construct();
         require 'models/Collection_model.php';
         $this->model = new Collection_model();
-        $this->index();
+        
+        $data = array('collection' => '', 'message' => '');
+
     }
     
     public function index($param = null)
@@ -17,13 +19,13 @@ class Collections extends Controller
             echo 'And this param would result in redirect to the BGG page';
         }
         
-        $data = array('collection' => $this->model->fetchCollection());
-        if (!$data['collection'])
+        $this->data['collection'] = $this->model->fetchCollection();
+        if (!$this->data['collection'])
         {
-            $data['message'] = '<p class="error">Oops! This game is already in your collection!</p>';
+            $this->data['message'] = '<p class="error">Your collection is empty! Add a game to start managing your collection.</p>';
         }
         
-        $this->view->render('collection', $data);
+        $this->view->render('collection', $this->data);
     }
     
     /**
@@ -46,7 +48,7 @@ class Collections extends Controller
                 if ($this->model->addGame($_SESSION['user_id'], $game_id))
                 {
                     echo 'DB queried successfully';
-                    $message = '<p class="success">' . $name . ' is now in your collection! Keep searching to add more game, or view your collection here.</p>'
+                    $message = '<p class="success">' . $game_name . ' is now in your collection! Keep searching to add more game, or view your collection here.</p>'
                             . '<p>Want to log a play immediately? Click here!</p>';
                 }
                 else
@@ -59,8 +61,8 @@ class Collections extends Controller
                 $message = '<p class="error">Oops! That game is already in your collection.</p>';
             }
             
-            $data = array('message' => $message);
-            $this->view->render('search', $data);
+            $this->data['message'] = $message;
+            $this->index();
         }
         else
         {

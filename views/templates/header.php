@@ -14,7 +14,7 @@
                 if (isset($_SESSION['user_id']))
                 {
 ?>
-                    <a href="<?= baseURL ?>/collections">Your Collection</a>
+                    <a href="<?= baseURL ?>/collections/index">Your Collection</a>
                     <a href="<?= baseURL ?>/logout">Log Out</a>
 <?php                
                 }

@@ -10,6 +10,11 @@
 
     // var_dump($data);
     // print_r($data);
+    
+    if (isset($data['message']))
+    {
+        echo $data['message'];
+    }
 
     if (isset($data['searchResult']))
     {
@@ -35,11 +40,6 @@
         
         // TODO set up try/catch to handle if API call doesn't function correctly.
     }
-    else if (isset($data['message']))
-    {
-        echo $data['message'];
-    }
-
 ?>
 
 </section>
