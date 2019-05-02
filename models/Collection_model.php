@@ -8,9 +8,14 @@ class Collection_model extends Model
         parent::__construct();
     }
 
-    public function fetchCollection()
+    /**
+     * This function pulls a user's collection from the database
+     * 
+     * 
+     */
+    public function fetchCollection($userId)
     {
-        $query = "SELECT game_id FROM user_collections WHERE user_id = 1";
+        $query = "SELECT game_id FROM user_collections WHERE user_id = $userId";
         
         $result = $this->db->query($query);
         

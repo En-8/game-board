@@ -12,6 +12,12 @@ class Collections extends Controller
 
     }
     
+    /**
+     * This funciton generates the data to be displayed on the main page of Collections
+     * It get's the user's collection from the model and passes it to the view for display
+     * 
+     * 
+     */
     public function index($param = null)
     {
         if ($param)
@@ -19,7 +25,7 @@ class Collections extends Controller
             echo 'And this param would result in redirect to the BGG page';
         }
         
-        $this->data['collection'] = $this->model->fetchCollection();
+        $this->data['collection'] = $this->model->fetchCollection($_SESSION['user_id']);
         if (!$this->data['collection'])
         {
             $this->data['message'] = '<p class="error">Your collection is empty! Add a game to start managing your collection.</p>';
@@ -71,6 +77,11 @@ class Collections extends Controller
         }
     }
     
+    /**
+     * This function removes a game from the user's collection
+     * 
+     * 
+     */
     public function remove($game_id, $game_name = null)
     {
         if ($this->model->removeGame($_SESSION['user_id'], $game_id))
