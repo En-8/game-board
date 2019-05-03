@@ -42,7 +42,7 @@ class BggAPI_model
      * @param $gamesById An array of game id's
      * @return an array of SimpleXMLElement Objects each representing a game.
      */
-    private function getThings($gamesById = array())
+    public function getThings($gamesById = array())
     {
         $apiRequest = $this->bggBaseURI . 'thing?id=' . implode(',', $gamesById);
         $ch = curl_init($apiRequest);

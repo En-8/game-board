@@ -9,7 +9,7 @@ class Collection_model extends Model
     }
 
     /**
-     * This function pulls a user's collection from the database
+     * This function pulls all game id's in a user's collection from the database
      * 
      * 
      */

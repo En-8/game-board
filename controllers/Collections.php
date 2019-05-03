@@ -6,7 +6,9 @@ class Collections extends Controller
     {
         parent::__construct();
         require 'models/Collection_model.php';
+        require 'models/BggAPI_model.php';
         $this->model = new Collection_model();
+        $this->api = new BggAPI_model();
         
         $data = array('collection' => '', 'message' => '');
 
@@ -25,10 +27,21 @@ class Collections extends Controller
             echo 'And this param would result in redirect to the BGG page';
         }
         
-        $this->data['collection'] = $this->model->fetchCollection($_SESSION['user_id']);
-        if (!$this->data['collection'])
+        $collectionIds = $this->model->fetchCollection($_SESSION['user_id']);
+        $gamesById = array();
+        
+        
+        if (!$collectionIds)
         {
             $this->data['message'] = '<p class="error">Your collection is empty! Add a game to start managing your collection.</p>';
+        }
+        else
+        {
+            foreach ($collectionIds as $game)
+            {
+                $gamesById[] = $game['game_id'];
+            }
+            $this->data['collection'] = $this->api->getThings($gamesById);
         }
         
         $this->view->render('collection', $this->data);

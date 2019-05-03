@@ -6,17 +6,34 @@
 
 <section class="game-collection">
 <?php
-    if (isset($data['collection']))
+    if (isset($data['message']))
     {
-        foreach ($data['collection'] as $game)
+        echo $data['message'];
+    }
+
+    if (!empty($data['collection']))
+    {
+        $collection = $data['collection'];
+        
+        foreach ($collection as $game)
         {
+            $id = $game->attributes()->id->__toString();
+            $name = $game->name[0]['value']->__toString();
+            $yearPublished = $game->yearpublished->attributes()->__toString();
+            $thumbnail = $game->thumbnail->__toString();
 ?>
             <article class="game-card">
-                <img />
-                <p class="game-title"><?= $game['game_id'] ?></p>
+                <div class="card-image" style="background-image: url(<?=$thumbnail?>)"></div>
+                <p><?= $name ?></p>
+                <p><?= $yearPublished ?></p>
+                <a href="<?=baseURL?>/collections/remove/<?=$id?>/<?=$name?>">Remove From Collection</a>
+                <a href="https://boardgamegeek.com/boardgame/<?=$id?>">More info on BGG.com</a>
             </article>
+
 <?php
         }
+        
+        // TODO set up try/catch to handle if API call doesn't function correctly.
     }
     else
     {
