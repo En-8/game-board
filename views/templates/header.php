@@ -22,6 +22,7 @@
                 {
 ?>               
                     <a href="<?= baseURL ?>/login">Log In</a>
+                    <a href="<?= baseURL ?>/register">Register</a>
 <?php
                 }
 ?>

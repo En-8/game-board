@@ -8,17 +8,46 @@ class User_model extends Model
         
     }
     
-    public function newUser()
+    /**
+     * This function attempts to add a new user to the database.
+     * @param $userData associative array of user's entered data.
+     * 
+     * @return true if successfully registered
+     * @return false if registration failed.
+     */
+    public function register($userData)
     {
-        // TODO add a user to the database
+        $username = $userData['username'];
+        $password = $userData['password'];
+        
+        $query = "SELECT * FROM users WHERE username = '$username'";
+        $result = $this->db->query($query);
+        
+        if ($result->num_rows == 0)
+        {
+            // Insert into database
+            $query = "INSERT INTO users VALUES ('', '$username', '$password')";
+            if ($this->db->query($query))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            // Username already in use.
+            return false;
+        }
     }
     
     /**
-     * This method checks if the given username and password combination exists in the database
-     * @param $username The user's supplied username
-     * @param $password The user's supplied password
-     * @return $user_data If user exists in the database, returns array containing user's id and username
-     * @return false User does not exist in the database
+     * This method checks if the given username or email already exists in the database
+     * @param $userData An associative array containing the user data
+     * @return true if the username and email are available for use.
+     * @return false If username or email are already in use.
      */
     public function authenticate($username, $password)
     {
