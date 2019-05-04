@@ -10,38 +10,55 @@ class Collections extends Controller
         $this->model = new Collection_model();
         $this->api = new BggAPI_model();
         
-        $data = array('collection' => '', 'message' => '');
+        $this->data = array('collection' => '', 'message' => '', 'userId' => '');
 
     }
     
     /**
-     * This funciton generates the data to be displayed on the main page of Collections
-     * It get's the user's collection from the model and passes it to the view for display
-     * 
+     * This funciton generates game collection data to be displayed
+     * By default, it displays the current user's collection.
+     * If a $userId is provided, it will display the collection of the specified user.
      * 
      */
-    public function index($param = null)
+    public function index($userId = false)
     {
-        if ($param)
+        // If a userId is specified, view the collection of that user
+        // Otherwise, view the current user's collection.
+        if ($userId)
         {
-            echo 'And this param would result in redirect to the BGG page';
-        }
-        
-        $collectionIds = $this->model->fetchCollection($_SESSION['user_id']);
-        $gamesById = array();
-        
-        
-        if (!$collectionIds)
-        {
-            $this->data['message'] = '<p class="error">Your collection is empty! Add a game to start managing your collection.</p>';
+            $collectionIds = $this->model->fetchCollection($userId);
+            $this->data['userId'] = $userId;
         }
         else
         {
+            $collectionIds = $this->model->fetchCollection($_SESSION['user_id']);
+            $this->data['userId'] = $_SESSION['user_id'];
+        }
+        
+        // If a non-empty collection was successfully retreived, 
+        //      Take the results of the query for game IDs data and store them in an indexed array,
+        //      then get data for those games from BGG API
+        if ($collectionIds)
+        {
+            $gamesById = array();
             foreach ($collectionIds as $game)
             {
                 $gamesById[] = $game['game_id'];
             }
             $this->data['collection'] = $this->api->getThings($gamesById);
+        }
+        else
+        {
+            if ($this->data['userId'] == $_SESSION['user_id'])
+            {
+                $this->data['message'] = '<p class="error">Your collection is empty! '
+                        . 'Add a game to start managing your collection.</p>';
+            }
+            else
+            {
+                $this->data['message'] = '<p class="error">This collection is empty! '
+                        . 'Tell this person to add some games to their collection!</p>';
+            }
         }
         
         $this->view->render('collection', $this->data);
@@ -109,6 +126,8 @@ class Collections extends Controller
         $this->data['message'] = $message;
         $this->index();
     }
+    
+   
 }
 
 

@@ -1,16 +1,19 @@
-<?php require_once 'views/templates/header.php';?>
+<?php
 
+require_once 'views/templates/header.php';
+$userId = $data['userId'];
+
+if ($_SESSION['user_id'] == $userId)
+{
+?>
 <a class="button" href="<?= baseURL ?>/search">Add a game</a>
-
+<?php
+}
+?>
 <?=$data['message']?>
 
 <section class="game-collection">
 <?php
-    if (isset($data['message']))
-    {
-        echo $data['message'];
-    }
-
     if (!empty($data['collection']))
     {
         $collection = $data['collection'];
@@ -26,7 +29,16 @@
                 <div class="card-image" style="background-image: url(<?=$thumbnail?>)"></div>
                 <p><?= $name ?></p>
                 <p><?= $yearPublished ?></p>
-                <a href="<?=baseURL?>/collections/remove/<?=$id?>/<?=$name?>">Remove From Collection</a>
+<?php
+                if ($_SESSION['user_id'] == $userId)
+                {
+                    $user
+?>
+                    <a href="<?=baseURL?>/collections/remove/<?=$id?>/<?=$name?>">Remove From Collection</a>
+<?php
+                }
+?>
+                <a href="<?=baseURL?>/log/view/<?=$userId?>/<?=$id?>/<?=$name?>">View Log</a>
                 <a href="https://boardgamegeek.com/boardgame/<?=$id?>">More info on BGG.com</a>
             </article>
 
@@ -35,13 +47,8 @@
         
         // TODO set up try/catch to handle if API call doesn't function correctly.
     }
-    else
-    {
 ?>
-    <p>Your collection is empty! Add games to get started managing your collection.</p>
-<?php
-    }
-?>
+
 </section>
 
 <?php require_once 'views/templates/footer.php';?>
