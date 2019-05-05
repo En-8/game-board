@@ -24,7 +24,11 @@ class Bootstrap
         }
         $controller = new $uri[0];
         
-        if (isset($uri[3]))
+        if (isset($uri[4]))
+        {
+            $controller->{$uri[1]}($uri[2], $uri[3], $uri[4]);
+        }
+        else if (isset($uri[3]))
         {
             $controller->{$uri[1]}($uri[2], $uri[3]);
         }

@@ -6,8 +6,6 @@ $userId = $data['userId'];
 $gameId = $data['gameId'];
 $gameName = $data['gameName'];
 
-var_dump($data['playLog']);
-
 // Only show the form for logging a play if a user is viewing their own play log.
 if ($_SESSION['user_id'] == $userId)
 {
@@ -22,10 +20,30 @@ if ($_SESSION['user_id'] == $userId)
 <?php
 }
 ?>
-
 <section class="play-log">
-    <h1>This is where the play log will go</h1>
-    <?=$data['message']?>
+    <h1>Username's <?=$gameName?> Play Log</h1>
+<?php
+    echo $data['message'];
+    if (!empty($data['playLog']))
+    {
+?>
+        <table>
+            <tr><th>Date</th><th>Play Time</th><th>Notes</th></tr>
+<?php
+            $count = 0;
+            foreach ($data['playLog'] as $play)
+            {
+?>
+                <tr><td><?=$play['date_of_play']?></td><td><?=$play['play_time']?></td><td><?=$play['notes']?></td></tr>
+<?php
+                $count++;
+            }
+?>
+            <tr><td colspan="3">You've played <?=$gameName?> <?=$count?> times.</td></tr>
+        </table>
+<?php
+    }
+?>
 
 
 </section>

@@ -40,7 +40,7 @@ class Log extends Controller
     }
     
     
-    public function view($userId, $gameId, $gameName = '')
+    public function view($userId, $gameId, $gameName)
     {
         $this->data['userId'] = $userId;
         $this->data['gameName'] = $gameName;
