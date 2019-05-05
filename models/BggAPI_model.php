@@ -58,6 +58,39 @@ class BggAPI_model
 
         return $thingArray;
     }
+    
+    public function fetchCollection($username)
+    {
+        $apiRequest = $this->bggBaseURI . 'collection?username=' . $username;
+        $ch = curl_init($apiRequest);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $xmlString = curl_exec($ch);
+        
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        
+        if ($httpCode == 202)
+        {
+            while ($httpCode == 202)
+            {
+                sleep(5);
+                $xmlString = curl_exec($ch);
+                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            }
+        }
+        
+        if ($httpCode == 200)
+        {
+            $xmlObject = simplexml_load_string($xmlString);
+        
+            return $xmlObject;
+        }
+        else
+        {
+            return false;
+        }
+        
+        
+    }
 }
 
 ?>

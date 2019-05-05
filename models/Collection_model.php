@@ -11,7 +11,8 @@ class Collection_model extends Model
     /**
      * This function pulls all game id's in a user's collection from the database
      * 
-     * 
+     * @param $userId the ID of the user whose collection is being fetched.
+     * @return An array containing the user's collection
      */
     public function fetchCollection($userId)
     {
@@ -105,12 +106,35 @@ class Collection_model extends Model
         $result = $this->db->query($query);
         if ($result->num_rows > 0)
         {
-            var_dump($result);
             return true;
         }
         else
         {
             return false;
+        }
+    }
+    
+    /**
+     * This function stores a collection imported from BGG to the GameBoard database
+     * 
+     * @param $userId the GameBoard ID of the user whose collection is being imported.
+     * @param $collection a SimpleXMLElement object containing the collection from BGG
+     * 
+     */
+    public function storeImportedCollection($userId, $collection)
+    {
+        // Parse the SimpleXML object to obtain the id's of every game in the user's collection
+        $gamesById = array();
+        foreach ($collection->item as $game)
+        {
+            $gamesById[] = $game['objectid']->__toString();
+        }
+        
+        // Store those ID's in the user_collections table, but make sure that the game is not a duplicate of one already in there.
+        foreach ($gamesById as $gameId)
+        {
+            $query = "INSERT INTO user_collections VALUES ('$userId', '$gameId')";
+            $this->db->query($query);
         }
     }
 }

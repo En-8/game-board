@@ -72,9 +72,6 @@ class Collections extends Controller
      */
     public function add($game_id, $game_name)
     {
-        var_dump($game_id); // FOR TESTING
-        var_dump($game_name); // FOR TESTING
-        
         $data = array();
         
         if (isset($_SESSION['user_id']))
@@ -84,7 +81,7 @@ class Collections extends Controller
                 if ($this->model->addGame($_SESSION['user_id'], $game_id))
                 {
                     echo 'DB queried successfully';
-                    $message = '<p class="success">' . $game_name . ' is now in your collection! Keep searching to add more game, or view your collection here.</p>'
+                    $message = '<p class="success">' . $game_name . ' is now in your collection! Keep searching to add more games, or view your collection here.</p>'
                             . '<p>Want to log a play immediately? Click here!</p>';
                 }
                 else
@@ -125,6 +122,32 @@ class Collections extends Controller
         
         $this->data['message'] = $message;
         $this->index();
+    }
+    
+    /**
+     * This function attempts to import a user's collection from BoardGameGeek.com
+     *
+     * 
+     */
+    public function import()
+    {
+        if (isset($_POST['submit']))
+        {
+            // attempt to import collection
+            $BGGusername = $_POST['username'];
+            $importResult = $this->api->fetchCollection($BGGusername);
+            if ($importResult)
+            {
+                $this->model->storeImportedCollection($_SESSION['user_id'], $importResult);
+            }
+        }
+        else
+        {
+            $this->data['message'] = '<p class="error">There was an error importing your collection. Please try again later.</p>';
+        }
+        
+        
+        $this->view->render('import', $this->data);
     }
     
    

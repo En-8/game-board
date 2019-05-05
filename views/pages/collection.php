@@ -7,6 +7,7 @@ if ($_SESSION['user_id'] == $userId)
 {
 ?>
 <a class="button" href="<?= baseURL ?>/search">Add a game</a>
+<a class="button" href="<?= baseURL ?>/collections/import">Import BoardGameGeek collection</a>
 <?php
 }
 ?>
