@@ -1,25 +1,99 @@
-body {
-    background-color: lightblue;
+/* CSS Reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
 }
+
+
+/*********************************************
+Navigation styles
+*********************************************/
 
 nav {
-    margin-left: 3em;
+	background-color: #e3e3e5;
 }
 
-nav>a {
-    padding: 0.5em;
-    margin-right: 1em;
-    text-decoration: none;
-    text-align: center;
+nav ul {
+	display: flex;
+	align-items: center;
+	list-style: none;
+}
+
+nav ul li {
+	background-color: #e3e3e5;
+	position: relative;
+	transition-duration: 0.2s;
+}
+
+nav ul li:hover {
+	background-color: #a76d63;
+}
+
+nav ul li a {
+	text-decoration: none;
+	color: black;
+	display: block;
+	padding: 1em;
+}
+
+nav ul li a:hover {
+	color: #fff;
+}
+
+.nav-brand {
+    font-size: x-large;
     font-weight: bold;
-    color: black;
-    background-color: grey;
-    border-radius: 3px;
 }
 
-nav>a:hover {
-    background-color: lightgrey;
+.nav-brand:hover {
+    background-color: inherit;
+    color: black;
 }
+
+.nav-items {
+    display: flex;
+}
+
+
+
+/*********************************************
+Dropdown Navigation styles
+*********************************************/
+
+nav ul li ul {
+	position: absolute;
+	min-width: 9em;
+	margin-top: 0;
+	left: 0;
+	display: none;
+}
+
+nav ul li:hover > ul,
+nav ul li ul:hover,
+nav ul li:focus-within > ul {
+	display: block;
+}
+
+
+/*********************************************
+Class Styles
+*********************************************/
 
 .flex-container {
     display: flex;

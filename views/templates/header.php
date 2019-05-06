@@ -6,26 +6,38 @@
     </head>
     <body>
         
-        <header class="flex-container">
-            <h1>GameBoard</h1>
-            <nav>
-                <a href="<?= baseURL ?>/index">Home</a>
+        <header>
+            <nav aria-label="Main Menu">
+            <ul role="menubar">
+                <div class="nav-brand">
+                <li role="menuitem" class="nav-brand"><a href="#" class="nav-brand">GameBoard</a></li>
+                </div>
+                <div class="nav-items">
+                <li role="menuitem"><a href="<?=baseURL?>">Home</a></li>
 <?php
                 if (isset($_SESSION['user_id']))
                 {
 ?>
-                    <a href="<?= baseURL ?>/collections/index">Your Collection</a>
-                    <a href="<?= baseURL ?>/logout">Log Out</a>
-<?php                
+                <li role="menuitem"><a href="#">Collections&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
+                    <ul role="menu">
+                        <li role="menuitem"><a href="<?=baseURL?>/collections/index">Your Collection</a></li>
+                        <li role="menuitem"><a href="#">Followed Collections</a></li>
+                        <li role="menuitem"><a href="#">Browse Collection</a></li>
+                    </ul>
+                </li>
+                <li role="menuitem"><a href="<?=baseURL?>/logout">Log Out</a></li>
+<?php
                 }
                 else
                 {
-?>               
-                    <a href="<?= baseURL ?>/login">Log In</a>
-                    <a href="<?= baseURL ?>/register">Register</a>
+?>
+                <li role="menuitem"><a href="<?=baseURL?>/login">Log In</a></li>
+                <li role="menuitem"><a href="<?=baseURL?>/register">Register</a></li>
 <?php
                 }
 ?>
-            </nav>
+            </div>
+            </ul>
+        </nav>
         </header>
         <hr />
