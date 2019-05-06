@@ -150,6 +150,48 @@ class Collections extends Controller
         $this->view->render('import', $this->data);
     }
     
+    /**
+     * This function attempts to add a collections to a user's list of followed collections
+     * 
+     * @param $userId the ID of the user whose collection is being followed
+     */
+    public function follow($userId)
+    {
+        $followerId = $_SESSION['user_id'];
+        if ($userId == $followerId)
+        {
+            return false;
+        }
+        
+        if ($this->model->addFollower($userId, $followerId))
+        {
+            $this->data['message'] = 'Collection successfully followed';
+        }
+        else
+        {
+            $this->data['message'] = "Either you are already following this collection or there was an error.";
+        }
+        
+        //header("Location:" . baseURL . "/collections/index/" . $userId);
+        $this->index($userId);
+    }
+    
+    public function followed()
+    {
+        $userId = $_SESSION['user_id'];
+        
+        if ($collections = $this->model->getFollowedCollections($userId))
+        {
+            $this->data['collection'] = $collections;
+        }
+        else
+        {
+            $this->data['message'] = "There was an error fetching your followed collections. Please try again.";
+        }
+        
+        $this->view->render('followedCollections', $this->data);
+    }
+    
    
 }
 

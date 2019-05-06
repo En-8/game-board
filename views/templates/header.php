@@ -21,7 +21,7 @@
                 <li role="menuitem"><a href="#">Collections&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
                     <ul role="menu">
                         <li role="menuitem"><a href="<?=baseURL?>/collections/index">Your Collection</a></li>
-                        <li role="menuitem"><a href="#">Followed Collections</a></li>
+                        <li role="menuitem"><a href="<?=baseURL?>collections/followed">Followed Collections</a></li>
                         <li role="menuitem"><a href="#">Browse Collection</a></li>
                     </ul>
                 </li>

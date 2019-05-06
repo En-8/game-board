@@ -137,6 +137,49 @@ class Collection_model extends Model
             $this->db->query($query);
         }
     }
+    
+    public function addFollower($userId, $followerId)
+    {
+        $userId = $this->db->real_escape_string(trim($userId));
+        $followerId = $this->db->real_escape_string(trim($followerId));
+        
+        $query = "INSERT INTO followers VALUES ('$userId', '$followerId')";
+        
+        if ($this->db->query($query))
+        {
+            echo "Query successful";
+            return true;
+        }
+        else
+        {
+            echo "query failed";
+            return false;
+        }
+    }
+    
+    /**
+     * This function retrieves a list of collections followed by the specified user
+     * 
+     * @param $userId the ID of the user whose followed collections are being retrieved.
+     */
+    public function getFollowedCollections($userId)
+    {
+        $collections = array();
+        $query = "SELECT users.username, followers.user_id FROM followers JOIN users ON followers.user_id = users.id WHERE follower_id = '$userId'";
+        if ($result = $this->db->query($query))
+        {
+            while ($data = mysqli_fetch_array($result))
+            {
+                $collections[] = $data;
+            }
+
+            return $collections;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 
 ?>

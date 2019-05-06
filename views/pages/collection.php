@@ -3,11 +3,24 @@
 require_once 'views/templates/header.php';
 $userId = $data['userId'];
 
+
 if ($_SESSION['user_id'] == $userId)
 {
 ?>
 <a class="button" href="<?= baseURL ?>/search">Add a game</a>
 <a class="button" href="<?= baseURL ?>/collections/import">Import BoardGameGeek collection</a>
+<?php
+}
+elseif ($data['following'])
+{
+?>
+<span class="button">Following</span>
+<?php
+}
+else
+{
+?>
+<a class="button" href="<?= baseURL ?>/collections/follow/<?=$userId?>">Follow this collection</a> 
 <?php
 }
 ?>
