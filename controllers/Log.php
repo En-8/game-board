@@ -4,6 +4,10 @@ class Log extends Controller
 {
     public function __construct()
     {
+        if (!isset($_SESSION['user_id']))
+        {
+            header('Location: ' . baseURL . '/login');
+        }
         parent::__construct();
         require 'models/Log_model.php';
         require 'models/BggAPI_model.php';

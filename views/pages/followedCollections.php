@@ -1,6 +1,6 @@
 <?php require_once 'views/templates/header.php'; ?>
 
-<main id="followed">
+<main class="collections">
 <h1>Your Followed Collections</h1>
 
 <?php

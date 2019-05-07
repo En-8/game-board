@@ -1,22 +1,23 @@
 <?php require_once 'views/templates/header.php';?>
-
-<form method="post" action="<?= baseURL ?>/search/index">
-    <input type="text" name="userSearch"/>
-    <input type="submit" value="Search" name="search"/>
-</form>
-
-<section class="game-collection">
+<main>
+    <form id="search" method="post" action="<?= baseURL ?>/search/index">
+        <h1>Search for a game to add</h1>
+        <input type="text" name="userSearch"/>
+        <input class="button" type="submit" value="Search" name="search"/>
+    </form>
+<div class="game-collection">
+<section class="game-collection-content">
 <?php
 
     // var_dump($data);
     // print_r($data);
     
-    if (isset($data['message']))
+    if (isset($data['error']))
     {
-        echo $data['message'];
+        echo $data['error'];
     }
 
-    if (isset($data['searchResult']))
+    if (!empty($data['searchResult']))
     {
         $searchResult = $data['searchResult'];
         
@@ -43,5 +44,7 @@
 ?>
 
 </section>
+</div>
+</main>
 
 <?php require_once 'views/templates/footer.php';?>

@@ -23,7 +23,7 @@
                     <ul role="menu">
                         <li role="menuitem"><a href="<?=baseURL?>/collections/index">Your Collection</a></li>
                         <li role="menuitem"><a href="<?=baseURL?>/collections/followed">Followed Collections</a></li>
-                        <li role="menuitem"><a href="#">Browse Collection</a></li>
+                        <li role="menuitem"><a href="<?=baseURL?>/collections/browse">Browse Collection</a></li>
                     </ul>
                 </li>
                 <li role="menuitem"><a href="<?=baseURL?>/logout">Log Out</a></li>

@@ -35,11 +35,10 @@ class Register extends Controller
         {
             // Immediately log in the new user.
             // Render registration success page.
-            echo 'Registration successful';
         }
         else
         {
-            echo 'Registration failed; result is ' . $result;
+
         }
     }
 }

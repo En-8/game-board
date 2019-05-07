@@ -6,6 +6,10 @@ class Index extends Controller
     
     public function __construct()
     {
+        if (!isset($_SESSION['user_id']))
+        {
+            header('Location: ' . baseURL . '/login');
+        }
         parent::__construct();
         require_once 'models/Activity_model.php';
         require_once 'models/BggAPI_model.php';

@@ -18,6 +18,10 @@ class BggAPI_model
         
         // Get the id of each item in the xmlString query result
         $xmlObject = simplexml_load_string($xmlString);
+        if ($xmlObject->attributes()['total']->__toString() == 0)
+        {
+            return false;
+        }
         
         foreach ($xmlObject->item as $item)
         {

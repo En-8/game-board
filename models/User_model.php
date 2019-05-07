@@ -26,7 +26,7 @@ class User_model extends Model
         if ($result->num_rows == 0)
         {
             // Insert into database
-            $query = "INSERT INTO users VALUES ('', '$username', '$password')";
+            $query = "INSERT INTO users VALUES ('', '$username', SHA1('$password'))";
             if ($this->db->query($query))
             {
                 return true;
@@ -51,7 +51,7 @@ class User_model extends Model
      */
     public function authenticate($username, $password)
     {
-        $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+        $query = "SELECT * FROM users WHERE username = '$username' AND password = SHA1('$password')";
         $result = $this->db->query($query);
         if ($result->num_rows == 1)
         {

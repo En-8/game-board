@@ -143,12 +143,10 @@ class Collection_model extends Model
         
         if ($this->db->query($query))
         {
-            echo "Query successful";
             return true;
         }
         else
         {
-            echo "query failed";
             return false;
         }
     }
@@ -169,6 +167,26 @@ class Collection_model extends Model
                 $collections[] = $data;
             }
 
+            return $collections;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public function getAllCollections($userId) 
+    {
+        $collections = array();
+        $query = "SELECT username, id FROM users WHERE id != '$userId'";
+        
+        if ($result = $this->db->query($query))
+        {
+            while ($data = mysqli_fetch_array($result))
+            {
+                $collections[] = $data;
+            }
+            
             return $collections;
         }
         else

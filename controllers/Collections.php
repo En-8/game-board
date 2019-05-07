@@ -4,6 +4,10 @@ class Collections extends Controller
 {
     public function __construct()
     {
+        if (!isset($_SESSION['user_id']))
+        {
+            header('Location: ' . baseURL . '/login');
+        }
         parent::__construct();
         require 'models/Collection_model.php';
         require 'models/BggAPI_model.php';
@@ -174,11 +178,11 @@ class Collections extends Controller
         
         if ($this->model->addFollower($userId, $followerId))
         {
-            $this->data['message'] = 'Collection successfully followed';
+            $this->data['message'] = '<p class="success">Collection successfully followed</p>';
         }
         else
         {
-            $this->data['message'] = "Either you are already following this collection or there was an error.";
+            $this->data['message'] = '<p class="error">Either you are already following this collection or there was an error.</p>';
         }
         
         //header("Location:" . baseURL . "/collections/index/" . $userId);
@@ -199,6 +203,18 @@ class Collections extends Controller
         }
         
         $this->view->render('followedCollections', $this->data);
+    }
+    
+    public function browse()
+    {
+        $collections = $this->model->getAllCollections($_SESSION['user_id']);
+        if (!$collections)
+        {
+            $this->data['message'] = '<p class="error">There was an error getting collections to browse. Please try again later</p>';
+        }
+        
+        $this->data['collection'] = $collections;
+        $this->view->render('browse', $this->data);
     }
     
    

@@ -6,6 +6,10 @@ class Search extends Controller
     
     public function __construct()
     {
+        if (!isset($_SESSION['user_id']))
+        {
+            header('Location: ' . baseURL . '/login');
+        }
         parent::__construct();
         require 'models/BggAPI_model.php';
         $this->model = new BggAPI_model();
@@ -22,10 +26,18 @@ class Search extends Controller
         if (isset($_POST['search']))
         {
             // Get user query from search input field then request data from BGG API
-            $userSearch = $_POST['userSearch']; // THIS SHOULD BE PARAMETER OF INDEX FUNCTION
-            $searchResult = $this->model->search($userSearch);
+            $data = array('searchResult' => '', 'error' => '');
             
-            $data = array('searchResult' => $searchResult);
+            $userSearch = $_POST['userSearch']; // THIS SHOULD BE PARAMETER OF INDEX FUNCTION
+            if ($searchResult = $this->model->search($userSearch))
+            {
+                $data['searchResult'] = $searchResult;
+            }
+            else
+            {
+                $data['error'] = '<p class="error">You search return no results. Please try again with a different search</p>';
+            }
+
             $this->view->render('search', $data);
         }
         else

@@ -9,7 +9,7 @@ class Bootstrap
         $uri = explode('/', $uri);
         $uri[0] = ucfirst($uri[0]);
         // print_r($uri);
-        
+
         if (empty($uri[0]))
         {
             require 'controllers/Index.php';

@@ -275,7 +275,7 @@ th {
     font-weight: bold;
 }
 
-#followed {
+.collections {
     text-align: center;
 }
 
@@ -346,6 +346,49 @@ form textarea {
     border: 1px solid grey;
     border-radius: 5px;
     padding: 0.5em;
+}
+
+#search {
+    border: none;
+    margin-bottom: 3em;
+}
+
+#search fieldset {
+    border: none;
+}
+
+#search input {
+    display: inline-block;
+    width: 75%;
+}
+
+#search input[type="submit"] {
+    width: 20%;
+    margin-left: 1em;
+}
+
+#import {
+    border: none;
+    margin-bottom: 3em;
+}
+
+#import fieldset {
+    border: none;
+}
+
+#import input {
+    display: inline-block;
+    width: 60%;
+}
+
+#import input[type="submit"] {
+    width: 35%;
+    margin-left: 1em;
+    margin: 0 0 0 1em;
+}
+
+#import label {
+    display: block;
 }
 
 /*********************************************

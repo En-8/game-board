@@ -8,47 +8,54 @@
 
     <div class="activity-feed-items">
 <?php
-    foreach ($data['activityStream'] as $activity)
+    if (!empty($data['activityStream']))
     {
-        
-        
-        // Get data needed for activity card
-        $username = $activity['username'];
-        $gameId = $activity['source_id'];
-        $activityDate = $activity['date'];
-        $gameName = $data['gameData'][$gameId]->name[0]['value']->__toString();
-        $gameImage = $data['gameData'][$gameId]->thumbnail->__toString();
-        
-        // Check activity type to generate appropriate message.
-        switch ($activity['activity_type']) 
+        foreach ($data['activityStream'] as $activity)
         {
-            case 1:
-                $message = "$username added $gameName to their collection";
-                break;
-            case 2:
-                $message = "$username removed $gameName from their collection";
-                break;
-            case 3:
-                $message = "$username played $gameName";
-                break;
-            default:
-                $message = "Error retrieving record";
-                break;
-        }
-        
+            
+            
+            // Get data needed for activity card
+            $username = $activity['username'];
+            $gameId = $activity['source_id'];
+            $activityDate = $activity['date'];
+            $gameName = $data['gameData'][$gameId]->name[0]['value']->__toString();
+            $gameImage = $data['gameData'][$gameId]->thumbnail->__toString();
+            
+            // Check activity type to generate appropriate message.
+            switch ($activity['activity_type']) 
+            {
+                case 1:
+                    $message = "$username added $gameName to their collection";
+                    break;
+                case 2:
+                    $message = "$username removed $gameName from their collection";
+                    break;
+                case 3:
+                    $message = "$username played $gameName";
+                    break;
+                default:
+                    $message = "Error retrieving record";
+                    break;
+            }
+            
 ?>
-        <article class="activity-card">
-            <div class="activity-card-content">
-                <div class="thumbnail" style="background-image: url(<?=$gameImage?>)"></div>
-                <div class="activity-card-text">
-                    <h2><?=$message?></h2>
-                    <p class="subheader"><?=$activityDate?></p>
+            <article class="activity-card">
+                <div class="activity-card-content">
+                    <div class="thumbnail" style="background-image: url(<?=$gameImage?>)"></div>
+                    <div class="activity-card-text">
+                        <h2><?=$message?></h2>
+                        <p class="subheader"><?=$activityDate?></p>
+                    </div>
                 </div>
-            </div>
-        </article>
-
+            </article>
+    
 
 <?php
+        }
+    }
+    else
+    {
+        echo '<p class="error">There\'s nothing here! Follow other collections to keep up with their activity</p>';
     }
 
 ?>
