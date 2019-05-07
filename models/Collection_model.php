@@ -49,11 +49,7 @@ class Collection_model extends Model
         $userId = $this->db->real_escape_string(trim($userId));
         $gameId = $this->db->real_escape_string(trim($gameId));
         
-        var_dump($userId);
-        var_dump($gameId);
-        
         $query = "INSERT INTO user_collections VALUES ('$userId', '$gameId')";
-        var_dump($query);
         
         if ($this->db->query($query))
         {

@@ -27,14 +27,13 @@ class Login extends Controller
         
         if ($result = $this->user_model->authenticate($username, $password))
         {
-            echo 'Login Successful; Logged in as ' . $result['username'];
             $_SESSION['user_id'] = $result['user_id'];
             $_SESSION['username'] = $result['username'];
             // echo 'Session vars set as ' . $_SESSION['user_id'] . ' and ' . $_SESSION['username']; TESTING PURPOSES ONLY
         }
         else
         {
-            echo 'Login failed; result is ' . $result;
+            // TODO put an error message here.
         }
     }
 }

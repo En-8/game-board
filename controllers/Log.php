@@ -7,10 +7,14 @@ class Log extends Controller
         parent::__construct();
         require 'models/Log_model.php';
         require 'models/BggAPI_model.php';
+        require 'models/Activity_model.php';
+        require 'models/User_model.php';
         $this->model = new Log_model();
         $this->api = new BggAPI_model();
+        $this->activities = new Activity_model();
+        $this->user = new User_model();
         
-        $this->data = array('message' => '', 'userId' => '', 'gameId' => '', 'gameName' => '', 'playLog' => '');
+        $this->data = array('username' => '', 'message' => '', 'userId' => '', 'gameId' => '', 'gameName' => '', 'playLog' => '', 'error' => '');
     }
     
      /**
@@ -27,14 +31,17 @@ class Log extends Controller
         {
             $playTime = $_POST['playTime'];
             $date = $_POST['date'];
-            $playData = array('userId' => $userId, 'gameId' => $gameId, 'playTime' => $playTime, 'date' => $date);
+            $notes = $_POST['notes'];
+            $playData = array('userId' => $userId, 'gameId' => $gameId, 'playTime' => $playTime, 'date' => $date, 'notes' => $notes);
+
             if ($this->model->logPlay($playData))
             {
-                $this->data['message'] = 'Play successfully logged! Changes to your play log should be reflected below.';
+                $this->data['message'] = '<p class="success">Play successfully logged! Changes to your play log should be reflected below.</p>';
+                $this->activities->logActivity($userId, 3, $gameId);
             }
             else
             {
-                $this->data['message'] = 'There was an error logging your play. Please try again.';
+                $this->data['error'] = '<p class="error">There was an error logging your play. Please try again.</p>';
             }
         }
     }
@@ -45,6 +52,7 @@ class Log extends Controller
         $this->data['userId'] = $userId;
         $this->data['gameName'] = $gameName;
         $this->data['gameId'] = $gameId;
+        $this->data['username'] = $this->user->getUsername($userId);
         
         if (isset($_POST['submit']))
         {
@@ -60,15 +68,23 @@ class Log extends Controller
         {
             if ($_SESSION['user_id'] == $userId)
             {
-                $this->data['message'] = 'You haven\'t played this game yet. Go play!';
+                $this->data['message'] = '<p>You haven\'t played this game yet. Go play!</p>';
             }
             else
             {
-                $this->data['message'] = 'This person hasn\'t played this game yet. Ask them to play with you!';
+                $this->data['message'] = '<p>This person hasn\'t played this game yet. Ask them to play with you!</p>';
             }
         }
         
         $this->view->render('playlog', $this->data);
+    }
+    
+    public function logform($gameId, $gameName)
+    {
+        $this->data['gameId'] = $gameId;
+        $this->data['gameName'] = $gameName;
+        
+        $this->view->render('logForm', $this->data);
     }
 }
 

@@ -37,7 +37,7 @@ class BggAPI_model
     }
     
     /**
-     * This method gets 'Thing'data from BGG api for each game in an array of game id's
+     * This method gets 'Thing' data from BGG api for each game in an array of game id's
      * 
      * @param $gamesById An array of game id's
      * @return an array of SimpleXMLElement Objects each representing a game.
@@ -51,9 +51,11 @@ class BggAPI_model
         $xmlObject = simplexml_load_string($xmlString);
         $thingArray = array();
         
+
         foreach ($xmlObject->item as $item)
         {
-            $thingArray[] = $item;
+            $id = $item->attributes()->id->__toString();
+            $thingArray[$id] = $item;
         }
 
         return $thingArray;

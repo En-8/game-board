@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>This is a title</title>
+        <title>GameBoard</title>
         <link rel="stylesheet" href="<?= baseURL; ?>/styles.css" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
     </head>
     <body>
         
@@ -21,7 +22,7 @@
                 <li role="menuitem"><a href="#">Collections&nbsp;&nbsp;<i class="fas fa-chevron-down"></i></a>
                     <ul role="menu">
                         <li role="menuitem"><a href="<?=baseURL?>/collections/index">Your Collection</a></li>
-                        <li role="menuitem"><a href="<?=baseURL?>collections/followed">Followed Collections</a></li>
+                        <li role="menuitem"><a href="<?=baseURL?>/collections/followed">Followed Collections</a></li>
                         <li role="menuitem"><a href="#">Browse Collection</a></li>
                     </ul>
                 </li>
@@ -40,4 +41,3 @@
             </ul>
         </nav>
         </header>
-        <hr />

@@ -4,8 +4,10 @@ class Model
 {
     public function __construct()
     {
-        require 'Database.php';
-        $this->db = new Database();
+        if (!isset($this->db))
+        {
+            $this->db = new mysqli('localhost', 'root', '', 'gbdb');
+        }
     }
 }
 

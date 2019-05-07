@@ -20,13 +20,52 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 
+/*********************************************
+Base styles
+*********************************************/
+h1 {
+    font-size: 24pt;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/*********************************************
+Sticky Footer styles
+*********************************************/
+html, body {
+    height: 100%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto; /* flex-grow, flex-shrink, flex-bais */
+    margin-top: 7em;
+}
+
+footer {
+    flex-shrink: 0;
+}
 
 /*********************************************
 Navigation styles
 *********************************************/
 
 nav {
-	background-color: #e3e3e5;
+	background-color: #07005E;
+	margin-bottom: 2em;
+	position: fixed;
+	width: 100%;
+	box-shadow: 4px 4px 10px grey;
 }
 
 nav ul {
@@ -36,20 +75,20 @@ nav ul {
 }
 
 nav ul li {
-	background-color: #e3e3e5;
+	background-color: #07005E;
 	position: relative;
 	transition-duration: 0.2s;
 }
 
 nav ul li:hover {
-	background-color: #a76d63;
+	background-color: grey;
 }
 
 nav ul li a {
 	text-decoration: none;
-	color: black;
+	color: white;
 	display: block;
-	padding: 1em;
+	padding: 1.5em;
 }
 
 nav ul li a:hover {
@@ -59,11 +98,13 @@ nav ul li a:hover {
 .nav-brand {
     font-size: x-large;
     font-weight: bold;
+    padding: 0;
+    margin: 0 .5em 0 .5em;
 }
 
 .nav-brand:hover {
     background-color: inherit;
-    color: black;
+    color: #fff;
 }
 
 .nav-items {
@@ -78,16 +119,18 @@ Dropdown Navigation styles
 
 nav ul li ul {
 	position: absolute;
-	min-width: 9em;
+	min-width: 13em;
 	margin-top: 0;
 	left: 0;
 	display: none;
+	box-shadow: 3px 3px 7px grey;
 }
 
 nav ul li:hover > ul,
 nav ul li ul:hover,
 nav ul li:focus-within > ul {
 	display: block;
+	color: #000;
 }
 
 
@@ -108,19 +151,27 @@ Class Styles
     text-align: center;
     font-weight: bold;
     color: black;
-    background-color: grey;
+    background-color: #E8A14D;
     border-radius: 3px;
     margin: 2em;
 }
 
 .button:hover {
-    background-color: lightgrey;
+    background-color: red;
+    box-shadow: 3px 3px 7px grey;
 
 }
 
 .game-collection {
+    width: 75%;
+    margin: 0 auto 0 auto;
+}
+
+.game-collection-content {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
+    margin: 0 auto 0 auto;
     
 }
 
@@ -129,7 +180,8 @@ Class Styles
     flex-direction: column;
     align-items: center;
     max-width: 200px;
-    border: 1px solid black;
+    margin: 0 1em 3em 1em;
+    
 }
 
 .game-card>p {
@@ -142,4 +194,171 @@ Class Styles
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top center;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px black;
+    margin-bottom: 0.75em;
+}
+
+.collection-btn-group {
+    text-align: center;
+}
+
+/*********************************************
+Activity Feed Styles
+*********************************************/
+
+.activity-feed {
+    width: 30%;
+    min-width: 275px;
+    margin: 0 auto 0 auto;
+}
+
+.activity-feed-items {
+    /*display: flex;
+    flex-direction: column;
+    align-items: center;*/
+}
+
+.activity-card {
+    width: 100%;
+    margin-bottom: 2em;
+    padding: 1em;
+    border: 0px solid grey;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px grey;
+}
+
+.activity-card-content {
+    display: flex;
+    align-items: flex-start;
+}
+
+.activity-card-text {
+    margin-left: 1em;
+}
+
+.thumbnail {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    flex-shrink: 0;
+}
+
+/*********************************************
+Table Styles
+*********************************************/
+
+table {
+    border-collapse: collapse;
+    width: 500px;
+    margin: 0 auto 0 auto;
+    box-shadow: 1px 1px 10px grey;
+}
+
+tr {
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+
+}
+
+td {
+    padding: 0.5em 0 0.5em 1em;
+    width: 50%;
+}
+
+th {
+    background-color: #07005E;
+    color: #fff;
+    padding: 0.5em 0 0.5em 1em;
+    font-weight: bold;
+}
+
+#followed {
+    text-align: center;
+}
+
+/*********************************************
+Log Styles
+*********************************************/
+.play-log {
+    text-align: center;
+}
+
+.log-table-date, .log-table-pt {
+    width: 25%;
+}
+
+.log-table-notes {
+    width: 50%;
+    text-align: left;
+}
+
+#log-table {
+    width: 80%;
+}
+
+/*********************************************
+Form Styles
+*********************************************/
+fieldset h1 {
+    margin-bottom: 1em;
+    margin-top: 0.25em
+}
+
+form {
+    width: 45%;
+    margin: 0 auto 0 auto;
+    border: 1px solid grey;
+}
+
+fieldset {
+    width: 75%;
+    margin: 0 auto 0 auto;
+    border: none;
+}
+
+form label {
+    display: inline-block;
+    margin-bottom: 0.5em;
+}
+
+form input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid grey;
+    padding: 0.5em;
+    margin-bottom: 1.25em;
+}
+
+form input[type="submit"] {
+    margin: 2em auto 2em auto;
+    display: inline-block;
+    width: 100%;
+}
+
+form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 0.5em;
+}
+
+/*********************************************
+Status Message Styles
+*********************************************/
+.success {
+    font-weight: bold;
+    color: green;
+    margin-bottom: 2em;
+}
+
+.error {
+    font-weight: bold;
+    color: red;
+    margin-bottom: 2em;
 }

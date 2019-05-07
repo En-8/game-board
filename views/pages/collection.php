@@ -2,8 +2,12 @@
 
 require_once 'views/templates/header.php';
 $userId = $data['userId'];
+$username = $data['username'];
 
-
+?>
+<main>
+<div class="collection-btn-group">
+<?php
 if ($_SESSION['user_id'] == $userId)
 {
 ?>
@@ -24,9 +28,21 @@ else
 <?php
 }
 ?>
-<?=$data['message']?>
+</div>
 
 <section class="game-collection">
+<?php
+if ($_SESSION['user_id'] == $userId)
+{
+    echo "<h1>Your Collection</h1>";
+}
+else
+{
+    echo "<h1>$username's Collection</h1>";
+}
+?>
+<?=$data['message']?>
+<div class="game-collection-content">
 <?php
     if (!empty($data['collection']))
     {
@@ -41,8 +57,8 @@ else
 ?>
             <article class="game-card">
                 <div class="card-image" style="background-image: url(<?=$thumbnail?>)"></div>
-                <p><?= $name ?></p>
-                <p><?= $yearPublished ?></p>
+                <p class="game-name"><?= $name ?></p>
+                <p class="year-published"><?= $yearPublished ?></p>
 <?php
                 if ($_SESSION['user_id'] == $userId)
                 {
@@ -62,7 +78,8 @@ else
         // TODO set up try/catch to handle if API call doesn't function correctly.
     }
 ?>
-
+</div>
 </section>
+</main>
 
 <?php require_once 'views/templates/footer.php';?>

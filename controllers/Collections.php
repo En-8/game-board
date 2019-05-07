@@ -7,10 +7,14 @@ class Collections extends Controller
         parent::__construct();
         require 'models/Collection_model.php';
         require 'models/BggAPI_model.php';
+        require 'models/Activity_model.php';
+        require 'models/User_model.php';
+        $this->user = new User_model();
         $this->model = new Collection_model();
         $this->api = new BggAPI_model();
+        $this->activities = new Activity_model();
         
-        $this->data = array('collection' => '', 'message' => '', 'userId' => '');
+        $this->data = array('collection' => '', 'message' => '', 'userId' => '', 'username' => '');
 
     }
     
@@ -28,6 +32,7 @@ class Collections extends Controller
         {
             $collectionIds = $this->model->fetchCollection($userId);
             $this->data['userId'] = $userId;
+            $this->data['username'] = $this->user->getUsername($userId);
         }
         else
         {
@@ -76,9 +81,11 @@ class Collections extends Controller
         
         if (isset($_SESSION['user_id']))
         {
-            if (!$this->model->gameInCollection($_SESSION['user_id'], $game_id))
+            $userId = $_SESSION['user_id'];
+            
+            if (!$this->model->gameInCollection($userId, $game_id))
             {
-                if ($this->model->addGame($_SESSION['user_id'], $game_id))
+                if ($this->model->addGame($userId, $game_id))
                 {
                     echo 'DB queried successfully';
                     $message = '<p class="success">' . $game_name . ' is now in your collection! Keep searching to add more games, or view your collection here.</p>'
@@ -94,6 +101,7 @@ class Collections extends Controller
                 $message = '<p class="error">Oops! That game is already in your collection.</p>';
             }
             
+            $this->activities->logActivity($userId, 1, $game_id);
             $this->data['message'] = $message;
             $this->index();
         }
@@ -120,6 +128,7 @@ class Collections extends Controller
             $message = '<p class="error">There was an error removing this game from your collection. Please try again.</p>';
         }
         
+        $this->activities->logActivity($_SESSION['user_id'], 2, $game_id);
         $this->data['message'] = $message;
         $this->index();
     }

@@ -64,6 +64,21 @@ class User_model extends Model
             return false;
         }
     }
+    
+    public function getUsername($userId)
+    {
+        $query = "SELECT username FROM users WHERE id = '$userId'";
+        $result = $this->db->query($query);
+        if (!$result)
+        {
+            return false;
+        }
+        
+        $data = mysqli_fetch_array($result);
+        $username = $data['username'];
+        
+        return $username;
+    }
 }
 
 ?>

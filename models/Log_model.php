@@ -14,7 +14,7 @@ class Log_model extends Model
         $userId = $this->db->real_escape_string(trim($userId));
         $gameId = $this->db->real_escape_string(trim($gameId));
         
-        $query = "SELECT * FROM play_log WHERE user_id = '$userId' AND game_id = '$gameId'";
+        $query = "SELECT * FROM play_log WHERE user_id = '$userId' AND game_id = '$gameId' ORDER BY date_of_play DESC, id DESC";
         
         $result = $this->db->query($query);
         
@@ -44,8 +44,9 @@ class Log_model extends Model
         $gameId = $this->db->real_escape_string(trim($playData['gameId']));
         $playTime = $this->db->real_escape_string(trim($playData['playTime']));
         $date = $this->db->real_escape_string(trim($playData['date']));
+        $notes = $this->db->real_escape_string(trim($playData['notes']));
         
-        $query = "INSERT INTO play_log VALUES ('', '$userId', '$gameId', '$playTime', '$date')";
+        $query = "INSERT INTO play_log VALUES ('', '$userId', '$gameId', '$playTime', '$date', '$notes')";
         if ($this->db->query($query))
         {
             return true;
