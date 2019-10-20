@@ -1,5 +1,9 @@
 <?php
 
-define(baseURL, 'https://game-board-en8ee.c9users.io');
+// Deployed BaseURL
+// define(baseURL, '');
+
+// Development BaseURL
+define(baseURL, 'http://localhost/development/game-board/');
 
 ?>
