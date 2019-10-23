@@ -3,7 +3,7 @@
 
 
 <main>
-    <form method="post" action="<?= $baseURL ?>/register">
+    <form method="post" action="<?= baseURL ?>/register">
         <fieldset>
             <legend><h1>Register to start managing your board game collection</h1></legend>
             <label for="username">Desired Username: </label>
