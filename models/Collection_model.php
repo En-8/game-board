@@ -20,6 +20,7 @@ class Collection_model extends Model
         
         $result = $this->db->query($query);
         
+        $collection = array();
         if ($result->num_rows > 0)
         {
             while ($data = mysqli_fetch_array($result))

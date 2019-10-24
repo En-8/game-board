@@ -38,7 +38,7 @@ class Register extends Controller
         }
         else
         {
-
+            echo "Registration failed";
         }
     }
 }

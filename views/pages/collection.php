@@ -24,7 +24,7 @@ elseif ($data['following'])
 else
 {
 ?>
-<a class="button" href="<?= baseURL ?>/collections/follow/<?=$userId?>">Follow this collection</a> 
+<a class="button" href="<?= baseURL ?>/collections/follow/<?=$userId?>">Follow this collection</a> <!-- need to make sure a user cannot be followed multiple times. -->
 <?php
 }
 ?>

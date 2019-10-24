@@ -20,7 +20,7 @@ class Activity_model extends Model
     {
         if ($activityType == 1 || $activityType == 2 || $activityType == 3)
         {
-            $query = "INSERT INTO activities VALUES ('', '$userId', '$activityType', '$sourceId', NOW())";
+            $query = "INSERT INTO activities VALUES (null, '$userId', '$activityType', '$sourceId', NOW())";
             if ($this->db->query($query))
             {
                 return true;

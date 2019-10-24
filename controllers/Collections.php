@@ -18,7 +18,7 @@ class Collections extends Controller
         $this->api = new BggAPI_model();
         $this->activities = new Activity_model();
         
-        $this->data = array('collection' => '', 'message' => '', 'userId' => '', 'username' => '');
+        $this->data = array('collection' => '', 'message' => '', 'userId' => '', 'username' => '', 'following' => false);
 
     }
     
@@ -37,6 +37,7 @@ class Collections extends Controller
             $collectionIds = $this->model->fetchCollection($userId);
             $this->data['userId'] = $userId;
             $this->data['username'] = $this->user->getUsername($userId);
+            $this->data['following'] = $this->checkIfFollowing($_SESSION['user_id'], $this->data['username']);
         }
         else
         {
@@ -93,7 +94,7 @@ class Collections extends Controller
                 {
                     echo 'DB queried successfully';
                     $message = '<p class="success">' . $game_name . ' is now in your collection! Keep searching to add more games, or view your collection here.</p>'
-                            . '<p>Want to log a play immediately? Click here!</p>';
+                            . '<p>Want to log a play immediately? Click here!</p></br>';
                 }
                 else
                 {
@@ -217,7 +218,24 @@ class Collections extends Controller
         $this->view->render('browse', $this->data);
     }
     
-   
+   public function checkIfFollowing($userId, $username) 
+   {
+        // Get the list of usernames whom the current user is following
+        if ($collections = $this->model->getFollowedCollections($userId))
+        {
+            foreach ($collections as $row)
+            {
+                if (in_array($username, $row))
+                {
+                    return true;
+                } 
+                else
+                {
+                    return false;
+                }
+            }
+        }
+   }
 }
 
 

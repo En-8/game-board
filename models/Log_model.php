@@ -16,8 +16,9 @@ class Log_model extends Model
         
         $query = "SELECT * FROM play_log WHERE user_id = '$userId' AND game_id = '$gameId' ORDER BY date_of_play DESC, id DESC";
         
-        $result = $this->db->query($query);
+        $result = $this->db->query($query); // TODO deal with scenarios where this query does not execute successfully -- the function will return bool(false)
         
+        $log = array();
         if ($result->num_rows > 0)
         {
             while ($data = mysqli_fetch_array($result))
@@ -46,7 +47,7 @@ class Log_model extends Model
         $date = $this->db->real_escape_string(trim($playData['date']));
         $notes = $this->db->real_escape_string(trim($playData['notes']));
         
-        $query = "INSERT INTO play_log VALUES ('', '$userId', '$gameId', '$playTime', '$date', '$notes')";
+        $query = "INSERT INTO play_log VALUES (null, '$userId', '$gameId', '$playTime', '$date', '$notes')";
         if ($this->db->query($query))
         {
             return true;
