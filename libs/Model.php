@@ -6,7 +6,7 @@ class Model
     {
         if (!isset($this->db))
         {
-            $this->db = new mysqli('localhost', 'game-board', '', 'gbdb');
+            $this->db = new mysqli('localhost', 'game-board', '', 'gameboard');
         }
     }
 }
